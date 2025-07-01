@@ -19,10 +19,37 @@
       <button>Get Space Images</button>
     </div>
 
+    <!-- Space Facts Section -->
+    <div class="space-facts">
+      <div class="fact-container">
+        <div class="fact-icon">
+          <img src="img/NASA-Logo-Large.jpg" alt="NASA Logo" class="nasa-insignia" />
+        </div>
+        <div class="fact-content">
+          <h3>Did You Know?</h3>
+          <p id="spaceFact">Loading amazing space fact...</p>
+        </div>
+        <button id="newFactBtn" class="fact-button">New Fact</button>
+      </div>
+    </div>
+
     <div id="gallery" class="gallery">
       <div class="placeholder">
         <div class="placeholder-icon">🔭</div>
         <p>Select a date range and click "Get Space Images" to explore the cosmos!</p>
+      </div>
+    </div>
+
+    <!-- Modal for displaying enlarged images -->
+    <div id="imageModal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <img id="modalImage" src="" alt="" />
+        <div class="modal-info">
+          <h2 id="modalTitle"></h2>
+          <p id="modalDate"></p>
+          <p id="modalExplanation"></p>
+        </div>
       </div>
     </div>
   </div>
