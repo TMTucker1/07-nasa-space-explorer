@@ -173,13 +173,12 @@ function displayImages(images) {
   
   // Create HTML for each image
   images.forEach(imageData => {
-    // Only show images (not videos)
+    // Create a gallery item element
+    const galleryItem = document.createElement('div');
+    galleryItem.className = 'gallery-item';
+    
     if (imageData.media_type === 'image') {
-      // Create a gallery item element
-      const galleryItem = document.createElement('div');
-      galleryItem.className = 'gallery-item';
-      
-      // Build the HTML content for this image (without explanation)
+      // Handle images normally
       galleryItem.innerHTML = `
         <img src="${imageData.url}" alt="${imageData.title}" />
         <p><strong>${imageData.title}</strong> (${imageData.date})</p>
@@ -191,18 +190,37 @@ function displayImages(images) {
       img.addEventListener('click', () => {
         openModal(imageData);
       });
+    } else if (imageData.media_type === 'video') {
+      // Handle videos with placeholder and link
+      galleryItem.innerHTML = `
+        <div class="video-placeholder">
+          <div class="video-icon">🎥</div>
+          <p>Video Content</p>
+        </div>
+        <p><strong>${imageData.title}</strong> (${imageData.date})</p>
+        <p style="color: #666; font-style: italic;">Click image for details</p>
+        <a href="${imageData.url}" target="_blank" class="video-link">
+          🎬 Watch Video
+        </a>
+      `;
       
-      // Add the item to the gallery
-      gallery.appendChild(galleryItem);
+      // Add click event listener to the placeholder
+      const placeholder = galleryItem.querySelector('.video-placeholder');
+      placeholder.addEventListener('click', () => {
+        openModal(imageData);
+      });
     }
+    
+    // Add the item to the gallery
+    gallery.appendChild(galleryItem);
   });
   
-  // If no images were displayed (only videos), show a message
+  // If no items were displayed, show a message
   if (gallery.children.length === 0) {
     gallery.innerHTML = `
       <div class="placeholder">
-        <div class="placeholder-icon">🎥</div>
-        <p>Only videos found for this date range. Try selecting different dates to see images.</p>
+        <div class="placeholder-icon">🔭</div>
+        <p>No content found for the selected date range.</p>
       </div>
     `;
   }
